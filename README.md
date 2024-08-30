@@ -1,33 +1,43 @@
-<h1 align="center">Best Story</h1>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/8bf20ff7-e9a7-4338-b99d-248f5cc1f9e3" alt="FillMainLogo" style="width: 150px;"/>
+</div>
+<h1 align="center">
+  Best Story
+</h1>
+
 
 사용자가 질문이나 주제를 제시하면 AI가 해당 주제에 대한 TOP 10 또는 TOP 토픽을 추천하는 웹 서비스 입니다.
 
-> [!NOTE]
-자동 채팅방 생성
-사용자가 질문이나 주제를 입력하면 자동으로 해당 주제에 맞는 채팅방이 생성됨.
-AI 추천 기능
-AI가 사용자가 제시한 주제에 대해 가장 적합한 TOP 10 리스트나 TOP 토픽을 추천해줌.
-공유 채팅방
-생성된 채팅방에는 여러 사용자가 함께 참여할 수 있음. 해당 룸에서 다양한 의견을 공유하고, 주제에 대해 토론등을 할 수 있음.
-리딩 기능
-채팅방을 생성한 사용자가 해당 방의 리더가 되며, 이야기를 끌어갈 수 있음. AI 추천 내용을 바탕으로 좋은 스토리를 만들어낼 수 있음.
-VOTE 투표 기능
-채팅방 참여자들은 토론이 유익하거나 내용이 좋다고 느낄 경우 투표를 할 수 있습니다. 투표 결과에 따라 해당 채팅방은 '베스트 룸'으로 선정될 수 있습니다.
-베스트 룸
-투표를 통해 선정된 베스트 룸은 메인 페이지나 별도의 베스트 룸 섹션에서 하이라이트로 보여집니다. 다른 사용자들이 베스트 룸을 쉽게 찾아볼 수 있도록 합니다.
 
-메인 페이지:
-검색/질문 입력창: 사용자가 질문이나 주제를 입력할 수 있는 검색창이 메인에 배치됩니다.
-실시간 인기 주제: 현재 가장 많이 생성되거나 활동 중인 채팅방 주제 목록이 표시됩니다.
-베스트 룸 섹션: 최근 베스트 룸으로 선정된 채팅방 목록을 보여줍니다.
-채팅방 페이지:
-채팅 영역: 사용자들이 자유롭게 의견을 나누는 채팅 인터페이스가 중앙에 위치합니다.
-AI 추천 TOP 10: 채팅방 상단 또는 측면에 AI가 추천한 TOP 10 리스트나 토픽이 표시됩니다.
-참여자 목록: 채팅방에 참여 중인 사용자들의 리스트가 보이며, 리딩 역할을 하는 사용자도 표시됩니다.
-VOTE 버튼: 채팅방 내용이 유익하거나 좋다고 느낀 사용자가 투표할 수 있는 버튼이 채팅창 상단이나 하단에 위치합니다.
-사용자 프로필:
-활동 내역: 사용자가 참여한 채팅방과 투표한 내용 등의 활동 내역이 기록됩니다.
-베스트룸 참여 기록: 사용자가 베스트 룸으로 선정된 채팅방에 얼마나 참여했는지, 혹은 리더 역할을 했는지 등의 정보가 표시됩니다.
-관리자 페이지:
-룸 관리: 전체 채팅방을 관리하고, 부적절한 내용이 포함된 채팅방은 관리자가 삭제하거나 경고할 수 있는 기능.
-AI 추천 관리: AI 추천 알고리즘의 세부 설정이나 주제별 추천 키워드 관리 기능.
+
+
+
+
+> [!NOTE]
+> 여러 장소를 계획할 때 유용한 정보를 얻을 수 있습니다.
+> 사용자가 질문이나 주제를 제시하면 AI가 해당 주제에 대한 TOP 10 또는 TOP 토픽을 추천하는 웹 서비스
+> 채팅방 형태로 이루어지며, 사용자가 질문을 던지면 자동으로 새로운 채팅방(룸)이 생성됩니다.
+> 이때, 다른 사용자들도 해당 룸에 참여할 수 있고 주제에 대해 의견을 나눌 수 있습니다.
+
+주요 기능
+* 자동 채팅방 생성
+  사용자가 질문이나 주제를 입력하면 자동으로 해당 주제에 맞는 채팅방이 생성됩니다.
+*  AI 추천 기능
+  AI가 사용자가 제시한 주제에 대해 가장 적합한 TOP 10 리스트나 TOP 토픽을 추천해줍니다,
+* 공유 채팅방
+  생성된 채팅방에는 여러 사용자가 함께 참여할 수 있음. 해당 룸에서 다양한 의견을 공유하고, 주제에 대해 토론등을 할 수 있습니다.
+* 리딩 기능
+  채팅방을 생성한 사용자가 해당 방의 리더가 되며, 이야기를 끌어갈 수 있음. AI 추천 내용을 바탕으로 좋은 스토리를 만들어낼 수 있습니다.
+* VOTE 투표 기능
+  채팅방 참여자들은 토론이 유익하거나 내용이 좋다고 느낄 경우 투표를 할 수 있습니다. 투표 결과에 따라 해당 채팅방은 '베스트 룸'으로 선정될 수 있습니다.
+* 베스트 룸
+  투표를 통해 선정된 베스트 룸은 메인 페이지나 별도의 베스트 룸 섹션에서 하이라이트로 보여집니다. 다른 사용자들이 베스트 룸을 쉽게 찾아볼 수 있도록 합니다.
+
+<!-- Skills -->
+
+[![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=fff)](https://reactjs.org/)
+[![React Query](https://img.shields.io/badge/React%20Query-FF4154?style=flat-square&logo=react-query&logoColor=white)](https://react-query.tanstack.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Zustand](https://img.shields.io/badge/Zustand-ffb800?style=flat-square&logo=zustand&logoColor=white)](https://github.com/pmndrs/zustand)
+[![React Router DOM](https://img.shields.io/badge/React%20Router%20DOM-CA4245?style=flat-square&logo=react-router&logoColor=white)](https://reactrouter.com/)
