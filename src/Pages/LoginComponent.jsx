@@ -3,10 +3,12 @@ import LoginPlatform from "../ui/LoginPlatform"
 import eye from "../assets/images/eye.svg"
 import lock from "../assets/images/lock.svg"
 import email from "../assets/images/email.svg"
+import closeEye from "../assets/images/closeEye.svg"
 import { Link } from "react-router-dom"
-
+import { useState } from "react"
 
 const LoginComponent = () => {
+    const [pwShow, setPwShow] = useState(false);
     return(
     <section className="bg-bgColor h-[calc(100vh-80px)] flex flex-col items-center justify-center">
 
@@ -29,8 +31,18 @@ const LoginComponent = () => {
         <div className="w-full px-[20px] border rounded-md border-tertiary py-[10px] h-[60px] gap-[10px] flex justify-center">
 
     <img src={lock} alt="" className="w-[18px]"/>
-    <input type="text" placeholder="이메일" className="w-full" />
+    <input type={pwShow? 'text' : 'password'} placeholder="비밀번호" className="w-full" />
+    <div onClick={() => {setPwShow((show) => (!show))}} className="flex w-[24px] justify-center items-center">
+{pwShow ?  (
+
     <img src={eye} alt="" className="w-[24px]" />
+)
+    : (
+        <img src={closeEye} alt="" className="w-[24px]" />
+        
+    )
+}
+    </div>
 
     </div>
     <p className="w-full h-[60px] flex justify-center items-center bg-primary font-bold text-tertiary rounded-sm">

@@ -5,7 +5,19 @@ import alarm from "../../assets/images/alarm.svg"
 import arrowDown from "../../assets/images/arrowDown.svg"
 import hamburger from "../../assets/images/hamburger.svg"
 import { Link } from "react-router-dom"
+import { useState } from "react"
+import useAside from "../../store/AsideOpen"
+
 const Navigation = () => {
+    const { setAsideOpen } = useAside();
+        // 초기 상태는 한국어
+        const [isKorean, setIsKorean] = useState(true);
+
+        // 클릭 시 호출되는 함수
+        const handleClick = () => {
+            setIsKorean(prevState => !prevState); // 상태를 반전
+        };
+
     return(
 
 <nav className="mx-[260px] bg-white font-Inter h-[80px] flex items-center justify-between whitespace-nowrap max-xl:mx-[130px] max-lg:mx-[60px] max-md:mx-[10px] max-sm:mx-[10px] ">
@@ -41,14 +53,18 @@ const Navigation = () => {
                 회원가입
                 </Link>
                 </p>
-            <div className="flex gap-2">
+            <div onClick={handleClick} className="flex gap-2 cursor-pointer">
 
-            <img src={korean} className="w-[27px]" alt="" />
-            <p>한국어</p>
+            <img 
+                src={isKorean ? korean : korean} 
+                className="w-[27px]" 
+                alt={isKorean ? "Korean" : "English"} 
+            />
+            <p className="ml-[2px]">{isKorean ? "한국어" : "English"}</p>
             <img src={arrowDown} className="w-[13px]" alt="" />
             </div>
             </div>
-            <img src={hamburger} className="w-[28px] max-md:inline hidden" alt="" />
+            <img onClick={() => {setAsideOpen(true)}} src={hamburger} className="w-[28px] max-md:inline hidden" alt="" />
 
 
     </nav>

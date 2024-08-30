@@ -8,11 +8,14 @@ import SignIn from "./Pages/SignIn"
 import LoginAgree from "./Pages/LoginAgree"
 import RoomMainContent from "./Pages/RoomMainContent"
 import MainChat from "./Pages/MainChat"
+import Aside from "./components/semantics/Aside"
+
 
 function App() {
-
+       
   return (
     <>
+    <Aside/>
       <Navigation/>
     <Routes>
 

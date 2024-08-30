@@ -7,9 +7,11 @@ const Chatting = () => {
 <>
 
         <div className="w-full overflow-hidden bg-white rounded-[10px] border border-tertiary">
-        <div className="w-full py-[10px] flex flex-col gap-[15px] px-[20px] ">
+        <div className="w-full overflow-auto h-[70vh] py-[10px] flex flex-col gap-[15px] px-[20px] ">
             <ChatGrayBox/>
             <ChatGrayBox/>
+            <ChatBox/>
+            <ChatBox/>
             <ChatBox/>
             <ChatBox/>
             <ChatBox/>

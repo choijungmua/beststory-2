@@ -1,5 +1,6 @@
-
+import { Link, useNavigate } from "react-router-dom";
 const LoginAgree = () => {
+        const navigate = useNavigate(); // useNavigate 훅 사용
         const check = `제1조(목적)
 
 이 약관은 00 회사가 운영하는 00사이버 물(이하 “을”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리 의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -58,7 +59,9 @@ PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질�
   </div>
             <div className="flex gap-[5px]">
 
-            <button className="w-1/2 rounded-[3px] py-[10px] px-auto bg-[#EAEAEA] border border-[#CCCCCC]">취소</button>
+            <button  onClick={() => navigate(-1)} className="w-1/2 rounded-[3px] py-[10px] px-auto bg-[#EAEAEA] border border-[#CCCCCC]">
+            취소
+            </button>
             <button className="w-1/2 rounded-[3px] py-[10px] text-white px-auto bg-primary border border-[#CCCCCC]">다음</button>
             </div>
     </div>

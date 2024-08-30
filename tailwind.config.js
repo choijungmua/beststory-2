@@ -9,6 +9,20 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        slideIn: 'slideIn 0.3s ease-out',
+        slideOut: 'slideOut 0.3s ease-in'
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' }
+        },
+        slideOut: {
+          '0%': { transform: 'translateX(0)', opacity: '1' },
+          '100%': { transform: 'translateX(100%)', opacity: '0' }
+        }
+      },
       colors: {
         primary: '#495DAC', // 주 색상
         secondary: '#FFD447', // 보조 색상
