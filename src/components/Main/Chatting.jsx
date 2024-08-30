@@ -2,27 +2,22 @@ import ChatGrayBox from "../../ui/ChatGrayBox";
 import ChatBox from "../../ui/ChatBox";
 import ChatPrompt from "../../ui/ChatPrompt";
 const Chatting = () => {
-    return(
-
-<>
-
-        <div className="w-full overflow-hidden bg-white rounded-[10px] border border-tertiary">
+  return (
+    <>
+      <div className="w-full overflow-hidden bg-white rounded-[10px] border border-tertiary">
         <div className="w-full overflow-auto h-[70vh] py-[10px] flex flex-col gap-[15px] px-[20px] ">
-            <ChatGrayBox/>
-            <ChatGrayBox/>
-            <ChatBox/>
-            <ChatBox/>
-            <ChatBox/>
-            <ChatBox/>
-            <ChatBox/>
-            
-</div>
-            <ChatPrompt/>
-</div>
-
-
-</>
-    )
-}
+          <ChatGrayBox />
+          <ChatGrayBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+        </div>
+        <ChatPrompt />
+      </div>
+    </>
+  );
+};
 
 export default Chatting;

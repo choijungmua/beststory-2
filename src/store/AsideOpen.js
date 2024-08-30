@@ -1,8 +1,8 @@
 // store.js
-import create from 'zustand';
+import create from "zustand";
 
 const useAside = create((set) => ({
-  asideOpen: false,  // 상태 초기값
+  asideOpen: false, // 상태 초기값
   setAsideOpen: (value) => set({ asideOpen: value }),
 }));
 

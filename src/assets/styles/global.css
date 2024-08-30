@@ -1,3 +1,6 @@
 * {
-    list-style: none;
+  list-style: none;
+}
+input {
+  outline: none;
 }

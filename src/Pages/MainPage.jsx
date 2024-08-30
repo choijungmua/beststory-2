@@ -1,15 +1,15 @@
-import MainMiddle from "../components/Main/MainMiddle"
-import MainTop from "../components/Main/MainTop"
+import MainMiddle from "../components/Main/MainMiddle";
+import MainTop from "../components/Main/MainTop";
 import Footer from "../components/semantics/Footer";
 const MainPage = () => {
-    return(
+  return (
     <main>
-            <MainTop/>
-            <MainMiddle/>
-            <Footer/>
+      <MainTop />
+      <MainMiddle />
+      <Footer />
     </main>
-    )
-}
+  );
+};
 
 export default MainPage;
-// 
+//
