@@ -1,0 +1,59 @@
+import mainLogo from "../assets/images/mainLogo.svg"
+import LoginPlatform from "../ui/LoginPlatform"
+import eye from "../assets/images/eye.svg"
+import lock from "../assets/images/lock.svg"
+import email from "../assets/images/email.svg"
+import { Link } from "react-router-dom"
+
+
+const LoginComponent = () => {
+    return(
+    <section className="bg-bgColor h-[calc(100vh-80px)] flex flex-col items-center justify-center">
+
+        <img src={mainLogo} alt="mainLogo" className="w-[54px]" />
+        {/* Login */}
+<div className="flex flex-col gap-[10px] mt-[50px] justify-center items-center">
+
+        <LoginPlatform platform="google"/>
+        <LoginPlatform platform="github"/>
+        <LoginPlatform platform="facebook"/>
+</div>
+
+{/* Login Input */}
+<div className="w-[500px] mt-[30px] border border-tertiary rounded-[10px] bg-white px-[20px] shadow-md py-[40px] flex flex-col gap-[10px] justify-center items-center">
+    <div className="w-full px-[20px] border rounded-md border-tertiary py-[10px] h-[60px] gap-[10px] flex justify-center">
+
+    <img src={email} alt="" className="w-[18px]"/>
+    <input type="text" placeholder="이메일" className="w-full" />
+    </div>
+        <div className="w-full px-[20px] border rounded-md border-tertiary py-[10px] h-[60px] gap-[10px] flex justify-center">
+
+    <img src={lock} alt="" className="w-[18px]"/>
+    <input type="text" placeholder="이메일" className="w-full" />
+    <img src={eye} alt="" className="w-[24px]" />
+
+    </div>
+    <p className="w-full h-[60px] flex justify-center items-center bg-primary font-bold text-tertiary rounded-sm">
+        <Link to="/loginCheck">
+        로그인
+        </Link>
+        </p>
+</div>
+<div className="text-center mt-[25px]">
+
+    <p className = "text=[#32543]">계정이 없나요?
+        <a href="" className="text-primary pl-2">
+            <Link to="/signIn">
+            회원가입
+            </Link>
+            </a>
+    </p>
+    <p className = "text=[#32543] "> 비밀번호가 기억나지 않나요?
+        <a href="" className="text-primary pl-2">비밀번호 찾기</a>
+    </p>
+</div>
+    </section>
+    )
+}
+
+export default LoginComponent;
