@@ -1,5 +1,5 @@
 import refresh from "../assets/images/refresh.svg";
-import addChat from "../assets/images/addchat.svg";
+import addChat from "../assets/images/addChat.svg";
 import { Link } from "react-router-dom";
 
 const RoomComplete = () => {
