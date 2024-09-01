@@ -64,19 +64,20 @@ const RecommendationUI = ({
   return (
     <>
       <div className="w-[49%] max-sm:h-[123px] max-2xl:w-full overflow-hidden flex mt-[20px] h-[210px] rounded-[10px] border border-tertiary">
-        <div className="w-[180px] h-full justify-center items-center max-sm:w-[97px]">
+        <div className="w-[180px] flex-shrink-0 justify-center items-center max-sm:w-[97px]">
           <img
             src={image}
             className="w-full h-full object-cover"
             alt="Travel"
           />
         </div>
-        <div className="mx-[20px] max-sm:mx-[15px] flex flex-col justify-center">
-          <div className="w-full font-bold text-[20px] max-sm:text-[16px] text-text flex max-sm:w-[250px] overflow-hidden whitespace-nowrap">
-            <Link to="/MainChat" className="w-full block truncate">
-              {title}
-            </Link>
-          </div>
+        <div className="mx-[20px] flex-1 max-sm:mx-[15px] flex flex-col justify-center">
+          <Link
+            to="/MainChat"
+            className="w-full font-bold text-[20px] max-sm:text-[16px] text-text flex flex-wrap max-sm:w-[250px]"
+          >
+            {title}
+          </Link>
 
           <div className="flex font-bold text-[14px] gap-[5px] mt-[5px] whitespace-nowrap">
             {tags.map((tag, index) => (

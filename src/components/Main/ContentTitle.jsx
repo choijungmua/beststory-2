@@ -17,13 +17,13 @@ function ContentTitle({ mainTitle, setTagShow, tagShow }) {
       <p className="font-bold py-[20px] text-[30px] max-lg:text-[26px]: max-sm:text-[20px]">
         {mainTitle}
       </p>
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap-reverse whitespace-nowrap">
         <SelectTag categoryArray={categoryArray} />
         {/* 북마크 */}
         {tagShow && (
           <div
             onClick={() => setIsBookmarked()}
-            className="cursor-pointer"
+            className="cursor-pointer mb-5"
             aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
           >
             <img
