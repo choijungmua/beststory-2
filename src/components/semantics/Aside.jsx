@@ -4,7 +4,7 @@ import arrowDown from "../../assets/images/arrowDown.svg";
 import Dog1 from "../../assets/images/Dog1.png";
 import bookMark from "../../assets/images/bookMark.svg";
 import alarm from "../../assets/images/alarm.svg";
-import useAside from "../../store/AsideOpen";
+import { useAside } from "../../store/AsideStore";
 import useToggle from "../../hooks/useToggle";
 
 export default function Aside() {

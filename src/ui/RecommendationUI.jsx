@@ -63,24 +63,32 @@ const RecommendationUI = ({
   // Render the component
   return (
     <>
-      <div className="w-[49%] max-2xl:w-full overflow-hidden flex mt-[20px] h-[210px] rounded-[10px] border border-tertiary">
-        <img src={image} className="w-[180px] h-full" alt="" />
-        <div className="w-full px-[20px] xl:px-[20px] lg:px-[10px] md:px-[10px] sm:px-[10px] flex flex-col justify-center">
-          <p className="font-bold text-[20px] xl:text-[20px] max-lg:text-[16px] max-md:text-[16px] max-sm:text-[16px] text-text ">
-            <Link to="/MainChat">{title}</Link>
-          </p>
+      <div className="w-[49%] max-sm:h-[123px] max-2xl:w-full overflow-hidden flex mt-[20px] h-[210px] rounded-[10px] border border-tertiary">
+        <div className="w-[180px] h-full justify-center items-center max-sm:w-[97px]">
+          <img
+            src={image}
+            className="w-full h-full object-cover"
+            alt="Travel"
+          />
+        </div>
+        <div className="mx-[20px] max-sm:mx-[15px] flex flex-col justify-center">
+          <div className="w-full font-bold text-[20px] max-sm:text-[16px] text-text flex max-sm:w-[250px] overflow-hidden whitespace-nowrap">
+            <Link to="/MainChat" className="w-full block truncate">
+              {title}
+            </Link>
+          </div>
 
-          <div className="flex gap-[5px] mt-[5px] whitespace-nowrap flex-wrap">
+          <div className="flex font-bold text-[14px] gap-[5px] mt-[5px] whitespace-nowrap">
             {tags.map((tag, index) => (
               <p
                 key={index}
-                className="rounded-[50px] flex items-center px-[25px] h-[40px] border border-tertiary xl:px-[25px] lg:px-[20px] md:px-[15px] max-sm:px-[8px] xl-h-[40px] lg-h-[30px] md-h-[30px] max-sm:h-[30px]"
+                className="rounded-[50px] flex items-center px-[25px] h-[40px] border max-sm:px-[15px] border-tertiary max-sm:h-[30px]"
               >
                 {tag}
               </p>
             ))}
           </div>
-          <div className="flex gap-[8px] mt-[30px] flex-wrap text-[14px] text-text">
+          <div className="flex gap-[8px] mt-[30px] flex-wrap text-[14px] max-sm:text-[12px] max-sm:mt-[10px] text-text">
             <div className="flex items-center gap-[4px]">
               <img
                 src={userImg}
@@ -89,14 +97,14 @@ const RecommendationUI = ({
               />
               <p>{userName}</p>
             </div>
-            <p className="flex items-center gap-[3px]">
+            <div className="flex items-center gap-[3px]">
               <div className="rounded-full w-[8px] h-[8px] bg-[#495DAC]" />
               접속자 {participants}
-            </p>
-            <p className="flex items-center gap-[3px]">
+            </div>
+            <div className="flex items-center gap-[3px]">
               <div className="rounded-full w-[8px] h-[8px] bg-tertiary" />
-              {lastActive} 전 대화
-            </p>
+              {lastActive}전
+            </div>
           </div>
         </div>
       </div>

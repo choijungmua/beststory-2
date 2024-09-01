@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import send from "../assets/images/send.svg";
 
 const RoomPrompt = ({ handlePromptSubmit, questionNumber, newInputState }) => {
   const [inputValue, setInputValue] = useState("");
-
+  const [isNumberChange, setIsNumberChange] = useState("text");
   // 폼 제출 처리
   const onSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +16,13 @@ const RoomPrompt = ({ handlePromptSubmit, questionNumber, newInputState }) => {
     setInputValue("");
   };
 
+  useEffect(() => {
+    if (questionNumber > 2) {
+      setIsNumberChange("number");
+    } else {
+      setIsNumberChange("text");
+    }
+  }, [questionNumber]);
   return (
     <form
       onSubmit={onSubmit}
@@ -26,7 +33,7 @@ const RoomPrompt = ({ handlePromptSubmit, questionNumber, newInputState }) => {
       <div className="gap-[10px] justify-between h-[76px] flex">
         <input
           value={inputValue}
-          type="text"
+          type={isNumberChange}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="내용을 입력하세요"
           className="w-full text-[20px] pl-[20px]  text-text placeholder:text-tertiary flex items-center"

@@ -12,7 +12,9 @@ function SecondQuestion({ onComplete, questionText }) {
             typeSpeed={40}
             onComplete={onComplete}
           />
-          <p className="text-text text-[16px]">ex) TOP 5, TOP7, TOP 10 ...</p>
+          <div className="flex gap-5">
+            <p className="text-text text-[16px] opacity-80">ex) TOP 5~10 ...</p>
+          </div>
         </div>
       </div>
     </>

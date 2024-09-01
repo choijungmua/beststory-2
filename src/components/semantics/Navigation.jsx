@@ -5,7 +5,7 @@ import alarm from "../../assets/images/alarm.svg";
 import arrowDown from "../../assets/images/arrowDown.svg";
 import hamburger from "../../assets/images/hamburger.svg";
 import { Link } from "react-router-dom";
-import useAside from "../../store/AsideOpen";
+import { useAside } from "../../store/AsideStore";
 import useToggle from "../../hooks/useToggle";
 
 const Navigation = () => {
@@ -17,7 +17,7 @@ const Navigation = () => {
     <nav className="mx-[260px] bg-white font-Inter h-[80px] flex items-center justify-between whitespace-nowrap max-xl:mx-[130px] max-lg:mx-[60px] max-md:mx-[10px] max-sm:mx-[10px] ">
       {/* Logo and Navigation */}
       <div className="flex gap-[40px] lg:gap-[20px]">
-        <div className="flex justify-center items-center gap-1 text-primary font-bold text-[30px] xl:text-[30px] lg:text-[30px] md:text-[24px]  max-sm:text-[20px]">
+        <div className="flex justify-center items-center gap-1 text-primary font-bold text-[30px]">
           <img src={mainLogo} alt="mainlogo" />
           <h1>
             <Link to="/">베스트스토리</Link>

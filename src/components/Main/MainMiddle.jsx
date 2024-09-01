@@ -7,28 +7,26 @@ import useStore from "../../store/store";
 const MainMiddle = () => {
   // Extract the array of titles from the store
   const newTitles = useStore((state) => state.newTitles);
-  console.log(newTitles);
   return (
     <section className="my-[30px] mx-[260px] mb-[135px] xl:mx-[260px] lg:mx-[130px] md:mx-[60px] sm:mx-[30px] max-sm:mx-[10px]">
       {/* 방만들기 */}
       <div className="justify-between flex mb-[50px]">
-        <p className="text-text text-[36px] xl:text-[36px] lg:text-[30px] md:text-[30px] sm:text-[26px]">
-          510개의 방
-        </p>
-        <Link to="/Room">
-          <div
-            className="flex bg-primary text-[20px] px-[20px] py-[10px] gap-[10px] justify-center items-center rounded-[10px] text-white 
-            xl:px-[20px] lg:px-[20px] md:px-[15px] sm:px-[10px]
-            xl:py-[10px] lg:py-[10px] md:py-[8px] sm:py-[6px]
-            xl:text-[20px] lg:text-[20px] md:text-[18px] sm:text-[18px]"
-          >
-            <img src={addChat} alt="" />방 만들기
-          </div>
+        <p className="text-text text-[36px] max-sm:text-[30px]">510개의 방</p>
+        <Link
+          to="/Room"
+          className="flex bg-primary max-sm:w-[120px] max-sm:h-[40px] max-sm:p-0 text-[20px] max-sm:text-[16px] px-[20px] py-[10px] gap-[10px] justify-center items-center rounded-[10px] text-white "
+        >
+          <img
+            src={addChat}
+            alt="addChat"
+            className="w-[33px] h-[33px] max-sm:w-[22px] max-sm:h-[22px]"
+          />
+          방 만들기
         </Link>
       </div>
       <Recommendation category="Best" />
       <Recommendation category="New" />
-      <div className="mt-[65px] mb-[25px] text-text text-[20px] lg:mt-[40px] lg:mb-[15px] lg:text-[16px]">
+      <div className="mt-[65px] mb-[25px] text-text text-[20px] max-lg:mt-[40px]">
         <p>실시간 알림</p>
       </div>
       <div className="flex flex-col gap-[15px] lg:gap-[10px]">

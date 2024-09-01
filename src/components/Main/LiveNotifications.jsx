@@ -7,7 +7,7 @@ const LiveNotifications = (props) => {
     <>
       <div className="text-text text-[20px] ">
         <div className="border flex items-center rounded-[10px] px-[20px] py-[30px] border-tertiary">
-          <span className="flex max-xl:flex-col  text-[20px] lg:text-[20px] md:text-[18px] max-sm:text-[16px]">
+          <span className="flex max-xl:flex-col text-[20px] max-lg:text-[18px] max-sm:text-[14px]">
             <Link to="/MainChat" className="font-bold text-[#495DAC] mr-1">
               {title}{" "}
             </Link>
