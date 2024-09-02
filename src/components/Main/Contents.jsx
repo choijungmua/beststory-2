@@ -7,35 +7,56 @@ import CategoryList from "../../ui/CategoryList";
 import ContentTitle from "./ContentTitle";
 import UserInfo from "../../ui/UserInfo";
 import { useChatShow } from "../../store/ChatStore";
-import MainChat from "../../Pages/MainChat";
 import Chatting from "./Chatting";
+
+const CONTAINER_CLASS =
+  "w-full max-lg:w-[100vw] flex flex-col font-Inter text-text rounded-[10px] border border-tertiary bg-white";
+const MAIN_CONTENT_CLASS = "flex w-full flex-col mb-[20px] max-lg:m-0";
+const CONTENT_TITLE_CONTAINER_CLASS =
+  "flex relative justify-center flex-col mx-[20px] gap-[15px]";
+const TAG_SELECTION_CLASS = "flex gap-[10px] flex-col flex-wrap";
+const TAG_TEXT_CLASS = "text-text";
+const CATEGORY_BUTTON_CONTAINER_CLASS =
+  "flex gap-[10px] flex-wrap text-white mb-[20px]";
+const CATEGORY_BUTTON_CLASS =
+  "flex gap-1 opacity-80 font-bold items-center rounded-[50px] bg-primary px-[25px] h-[40px]";
+const BORDER_CLASS =
+  "border-t-2 mr-[20px] w-full max-lg:hidden border-tertiary";
+const USER_INFO_CLASS = "max-lg:inline hidden";
+const CHAT_CONTAINER_CLASS = "mt-[20px] w-full";
+const CHAT_CONTENT_CLASS = "w-full h-full";
+const CHAT_ANIMATION_CLASS = "max-lg:h-full max-lg:w-full gap-[15px]";
+const CHAT_SHOW_CLASS = "max-lg:animate-slideIn max-lg:block";
+const CHAT_HIDE_CLASS = "max-lg:animate-slideOut max-lg:hidden";
+
 function Contents() {
   const { roomData, mainTitle } = useRoomStore();
   const [tagShow, setTagShow] = useToggle();
-  const { chatShow, setChatShow } = useChatShow();
+  const { chatShow } = useChatShow();
+
   return (
-    <div className="w-full max-lg:w-[100vw] flex flex-col font-Inter text-text rounded-[10px] border border-tertiary bg-white">
+    <div className={CONTAINER_CLASS}>
       {/* 메인 콘텐츠 */}
-      <div className="flex w-full flex-col mb-[20px] max-lg:m-0">
-        <div className="flex relative justify-center flex-col mx-[20px] gap-[15px]">
+      <div className={MAIN_CONTENT_CLASS}>
+        <div className={CONTENT_TITLE_CONTAINER_CLASS}>
           <ContentTitle
             mainTitle={mainTitle}
             setTagShow={setTagShow}
             tagShow={tagShow}
           />
           {/* 추가할 태그 선택 */}
-          <div className="flex gap-[10px] flex-col flex-wrap">
+          <div className={TAG_SELECTION_CLASS}>
             {!tagShow && (
               <>
-                <p className="text-text">
+                <p className={TAG_TEXT_CLASS}>
                   추가할 태그를 선택하세요. (최대 5개)
                 </p>
 
-                <div className="flex gap-[10px] flex-wrap text-white mb-[20px]">
+                <div className={CATEGORY_BUTTON_CONTAINER_CLASS}>
                   <CategoryList categories={categories} />
                   <button
                     onClick={setTagShow}
-                    className="flex gap-1 opacity-80 font-bold items-center rounded-[50px] bg-primary px-[25px] h-[40px]"
+                    className={CATEGORY_BUTTON_CLASS}
                   >
                     <img src={Check} alt="" />
                     완료
@@ -45,25 +66,23 @@ function Contents() {
             )}
           </div>
 
-          <div className="border-t-2 mr-[20px] w-full max-lg:hidden border-tertiary" />
-          <div className="max-lg:inline hidden">
+          <div className={BORDER_CLASS} />
+          <div className={USER_INFO_CLASS}>
             <UserInfo />
           </div>
         </div>
-        <div className="mt-[20px] w-full">
+        <div className={CHAT_CONTAINER_CLASS}>
           {/* 조건부 렌더링 */}
           {!chatShow ? (
-            <div className="w-full h-full">
+            <div className={CHAT_CONTENT_CLASS}>
               {roomData.map((data, index) => (
                 <MainChatContent key={index} {...data} index={index + 1} />
               ))}
             </div>
           ) : (
             <div
-              className={` max-lg:h-full max-lg:w-full gap-[15px] ${
-                chatShow
-                  ? "max-lg:animate-slideIn max-lg:block"
-                  : "max-lg:animate-slideOut max-lg:hidden"
+              className={`${CHAT_ANIMATION_CLASS} ${
+                chatShow ? CHAT_SHOW_CLASS : CHAT_HIDE_CLASS
               }`}
             >
               <Chatting />
