@@ -5,6 +5,11 @@ import ChatPrompt from "../../ui/ChatPrompt";
 import MyChat from "../../ui/MyChat";
 import { useChatting } from "../../store/ChatStore";
 
+const CONTAINER_CLASS =
+  "w-[450px] max-lg:w-full overflow-hidden bg-white rounded-[10px] border border-tertiary";
+const CHAT_LIST_CLASS =
+  "w-full overflow-y-auto overflow-x-hidden h-[50vh] max-sm:h-[50vh] max-lg:h-[80vh] py-[10px] flex flex-col gap-[15px] px-[20px]";
+
 const Chatting = () => {
   const { chatting } = useChatting();
 
@@ -20,10 +25,10 @@ const Chatting = () => {
   }, [chatting]); // chatting 배열이 업데이트될 때마다 실행
 
   return (
-    <div className="w-[450px] max-lg:w-full overflow-hidden bg-white rounded-[10px] border border-tertiary">
+    <div className={CONTAINER_CLASS}>
       <div
         ref={chatContainerRef} // chatContainerRef를 채팅 리스트 컨테이너에 연결
-        className="w-full overflow-y-auto overflow-x-hidden h-[50vh] max-sm:h-[50vh] max-lg:h-[80vh] py-[10px] flex flex-col gap-[15px] px-[20px]"
+        className={CHAT_LIST_CLASS}
       >
         <ChatGrayBox message="채팅이 시작되었습니다." />
 
