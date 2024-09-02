@@ -1,5 +1,4 @@
 const SelectTag = ({ categoryArray }) => {
-  const selectedTags = ["여행", "휴식", "취미"];
   return (
     <div className="flex flex-wrap gap-[10px] text-white mb-[20px]">
       {categoryArray.map((item, index) => (

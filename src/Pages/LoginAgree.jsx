@@ -1,16 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import useToggle from "../hooks/useToggle";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const LoginAgree = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
-  const [isAllChecked, setIsAllChecked] = useToggle();
-  const [isCheck1, setIsCheck1] = useToggle();
-  const [isCheck2, setIsCheck2] = useToggle();
-  const [isCheck3, setIsCheck3] = useToggle();
+  const [isAllChecked, setIsAllChecked] = useState(true);
+  const [isCheck1, setIsCheck1] = useState(true);
+  const [isCheck2, setIsCheck2] = useState(true);
+  const [isCheck3, setIsCheck3] = useState(true);
+  // `isAllChecked`가 변경될 때 개별 체크박스 상태 동기화
   useEffect(() => {
-    setIsCheck1();
-    setIsCheck2();
-    setIsCheck3();
+    if (isAllChecked === false) {
+      setIsCheck1(false);
+      setIsCheck2(false);
+      setIsCheck3(false);
+    } else {
+      setIsCheck1(true);
+      setIsCheck2(true);
+      setIsCheck3(true);
+    }
   }, [isAllChecked]);
 
   // 모든 체크박스 상태가 false일 때 버튼 비활성화
@@ -42,14 +48,14 @@ PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질�
 `;
   return (
     <section className="w-[100vw] h-[calc(100vh-80px)] flex justify-center items-center bg-[#F3F3F3]">
-      <div className="bg-white absolute border border-tertiary flex flex-col gap-[5px] rounded-[10px] p-[20px]">
+      <div className="bg-white border max-sm:h-full border-tertiary flex flex-col gap-[5px] rounded-[10px] p-[20px]">
         <span className="flex items-center mb-5px py-[15px] border-b-2 gap-[8px] text-text font-bold">
           <input
             type="checkbox"
             name=""
             id=""
             checked={!isAllChecked}
-            onChange={setIsAllChecked}
+            onChange={() => setIsAllChecked((value) => !value)}
             className="w-[20px] h-[20px] border"
           />
           모든 약관을 확인하고 전체 동의합니다.
@@ -60,12 +66,12 @@ PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질�
             name=""
             id=""
             checked={!isCheck1}
-            onChange={setIsCheck1}
+            onChange={() => setIsCheck1((value) => !value)}
             className="w-[20px] h-[20px] border"
           />
           이용약관 동의 (필수)
         </span>
-        <div className="w-[405px] h-[148px] border border-[#CCCCCC] rounded-[3px] overflow-auto white-space: whitespace-pre-wrap">
+        <div className="w-[405px] max-sm:w-full h-[148px] border border-[#CCCCCC] rounded-[3px] overflow-auto white-space: whitespace-pre-wrap">
           {check}
         </div>
         <span className="flex py-[10px] items-center gap-[8px] text-text text-[14px]">
@@ -74,12 +80,12 @@ PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질�
             name=""
             id=""
             checked={!isCheck2}
-            onChange={setIsCheck2}
+            onChange={() => setIsCheck2((value) => !value)}
             className="w-[20px] h-[20px] border"
           />
           개인정보 수집 및 이용 동의 (필수)
         </span>
-        <div className="w-[405px] h-[148px] border border-[#CCCCCC] rounded-[3px] overflow-auto white-space: whitespace-pre-wrap">
+        <div className="w-[405px] max-sm:w-full h-[148px] border border-[#CCCCCC] rounded-[3px] overflow-auto white-space: whitespace-pre-wrap">
           {check}
         </div>
         <span className="flex py-[10px] items-center gap-[8px] text-text text-[14px]">
@@ -88,12 +94,12 @@ PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질�
             name=""
             id=""
             checked={!isCheck3}
-            onChange={setIsCheck3}
+            onChange={() => setIsCheck3((value) => !value)}
             className="w-[20px] h-[20px] border"
           />
           이메일 수신 동의 (선택)
         </span>
-        <div className="w-[405px] h-[148px] border border-[#CCCCCC] rounded-[3px] overflow-auto white-space: whitespace-pre-wrap">
+        <div className="w-[405px] max-sm:w-full h-[148px] border border-[#CCCCCC] rounded-[3px] overflow-auto white-space: whitespace-pre-wrap">
           {check}
         </div>
         <div className="flex gap-[5px]">

@@ -11,18 +11,18 @@ const LoginComponent = () => {
 
   return (
     <section className="bg-bgColor h-[calc(100vh-80px)] flex flex-col items-center justify-center">
-      <Link to="/">
+      <Link to="/" className="max-sm:mt-[100px]">
         <img src={mainLogo} alt="mainLogo" className="w-[54px]" />
       </Link>
       {/* Login */}
-      <div className="flex flex-col gap-[10px] mt-[50px] justify-center items-center">
+      <div className="flex flex-col w-full gap-[10px] mt-[50px] justify-center items-center">
         <LoginPlatform platform="google" />
         <LoginPlatform platform="github" />
         <LoginPlatform platform="facebook" />
       </div>
 
       {/* Login Input */}
-      <div className="w-[500px] mt-[30px] border border-tertiary rounded-[10px] bg-white px-[20px] shadow-md py-[40px] flex flex-col gap-[10px] justify-center items-center">
+      <div className="w-[500px] max-sm:w-full mt-[30px] border border-tertiary rounded-[10px] bg-white px-[20px] shadow-md py-[40px] flex flex-col gap-[10px] justify-center items-center">
         <div className="w-full px-[20px] border rounded-md border-tertiary py-[10px] h-[60px] gap-[10px] flex justify-center">
           <img src={email} alt="" className="w-[18px]" />
           <input type="text" placeholder="이메일" className="w-full" />

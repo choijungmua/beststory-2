@@ -1,18 +1,20 @@
 import search from "../../assets/images/search.svg";
 import { categories } from "../../db/categories";
-import MoreInfo from "../../assets/images/MoreInfo.svg";
-import useIsMobile from "../../hooks/useIsMobile";
 import useToggle from "../../hooks/useToggle";
+import SelectTag from "../../ui/SelectTag";
+import CategoryList from "../../ui/CategoryList";
+import Check from "../../assets/images/Check.svg";
+import { useCategory } from "../../store/Array";
+
 const MainTop = () => {
-  const isMobile = useIsMobile(); // 기본 640px을 breakpoint로 사용
-  const [isMoreInfo, setIsMoreInfo] = useToggle();
   const [showSearch, setShowSearch] = useToggle();
-  const displayedCategories = isMobile ? categories.slice(0, 8) : categories;
+  const { categoryArray } = useCategory();
+
   return (
     <section className="bg-[#F3F3F3] pt-[25px] pb-[40px] ">
       {/* 검색 필터 */}
       <div className="relative mx-[260px] xl:mx-[260px] lg:mx-[130px] md:mx-[60px] sm:mx-[30px] max-sm:mx-[10px]">
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-[20px]">
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-[20px] mb-[20px]">
           <div className="bg-white  rounded-[10px] border border-tertiary max-sm:w-full px-[20px] w-[65%] h-[76px] flex gap-[10px]">
             <input
               type="text"
@@ -28,28 +30,25 @@ const MainTop = () => {
             FILTER
           </p>
         </div>
-        {!showSearch && (
-          <div className="flex">
-            <ul className="mt-[20px] max-sm:mt-[7px] flex font-bold gap-[5px] flex-wrap">
-              {(isMoreInfo ? displayedCategories : categories).map(
-                (category, index) => (
-                  <button
-                    className="bg-white flex justify-center items-center border boder-[#D8DEF3] h-[40px] rounded-[50px] px-[25px] py-[10px] xl:text-[16px] max-lg:text-[14px]"
-                    key={index}
-                  >
-                    {category}
-                  </button>
-                )
-              )}
-            </ul>
-            <img
-              src={MoreInfo}
-              alt="MoreInfo"
-              onClick={setIsMoreInfo}
-              className="right-0 -bottom-6 absolute max-sm:inline hidden"
-            />
-          </div>
-        )}
+        <SelectTag categoryArray={categoryArray} />
+        <div className="flex gap-[10px] flex-col flex-wrap">
+          {!showSearch && (
+            <>
+              <p className="text-text">추가할 태그를 선택하세요. (최대 5개)</p>
+
+              <div className="flex gap-[10px] flex-wrap text-white mb-[20px]">
+                <CategoryList categories={categories} />
+                <button
+                  onClick={setShowSearch}
+                  className="flex gap-1 opacity-80 font-bold items-center rounded-[50px] bg-primary px-[25px] h-[40px]"
+                >
+                  <img src={Check} alt="" />
+                  완료
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </section>
   );

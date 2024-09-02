@@ -51,7 +51,7 @@ const SignIn = () => {
             </label>
           </div>
           <div className="flex flex-col gap-[20px]">
-            <div className="flex gap-4 text-[#888888]">
+            <div className="flex gap-4 max-sm:flex-wrap text-[#888888]">
               <span className="flex gap-2">
                 <img src={Union} alt="" />
                 최소 8자
