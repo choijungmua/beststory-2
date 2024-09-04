@@ -3,8 +3,10 @@ import { updateProfile } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth, storage } from "../../firebase-config"; // Ensure correct import
 import useUserStore from "../../store/Auth";
+import { useTranslation } from "react-i18next";
 
 function MyInfo() {
+  const { t } = useTranslation();
   const { user, setUser } = useUserStore();
   const [displayName, setDisplayName] = useState(user.displayName || "");
   const [photoURL, setPhotoURL] = useState(user.photoURL || "");
@@ -37,15 +39,15 @@ function MyInfo() {
       if (user) {
         await updateProfile(user, { displayName, photoURL: updatedPhotoURL });
         setUser({ ...user, displayName, photoURL: updatedPhotoURL }); // Update local state
-        setSuccess("Profile updated successfully.");
-        alert("Profile updated successfully."); // Alert message
+        setSuccess(t("profile_update_success"));
+        alert(t("profile_update_success")); // Alert message
       } else {
-        setError("User is not authenticated.");
+        setError(t("user_not_authenticated"));
       }
     } catch (err) {
       console.error("Error updating profile:", err);
-      setError("Failed to update profile.");
-      alert("Failed to update profile."); // Alert message
+      setError(t("profile_update_error"));
+      alert(t("profile_update_error")); // Alert message
     }
   };
 
@@ -55,11 +57,11 @@ function MyInfo() {
         <div className="flex flex-col items-center">
           <img
             src={photoURL || "https://via.placeholder.com/150"}
-            alt="User Photo"
+            alt={t("upload_profile_picture")}
             className="w-24 h-24 rounded-full object-cover mb-4"
           />
           <label className="block mt-4">
-            <span className="text-gray-700">Upload a new profile picture:</span>
+            <span className="text-gray-700">{t("upload_profile_picture")}</span>
             <input
               type="file"
               onChange={handleFileChange}
@@ -69,7 +71,7 @@ function MyInfo() {
         </div>
         <div>
           <label className="block">
-            <span className="text-gray-700">Username:</span>
+            <span className="text-gray-700">{t("username")}</span>
             <input
               type="text"
               value={displayName}
@@ -82,7 +84,7 @@ function MyInfo() {
           type="submit"
           className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-150"
         >
-          Update
+          {t("update")}
         </button>
       </form>
       {error && <p className="text-red-500 mt-4">{error}</p>}

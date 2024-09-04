@@ -13,10 +13,14 @@ import MainChat from "./Pages/MainChat";
 import Admin from "./Pages/Admin";
 import MyInformation from "./Pages/MyInformation";
 import ProtectedRoute from "./components/ProtectedRoute";
-import useUserStore from "./store/Auth";
-
+import useAuth from "./hooks/useAuth";
+import Notification from "./Pages/Notification";
+import PasswordResetPage from "./Pages/PasswordResetPage";
+import About from "./Pages/About";
+import Test from "./Pages/Test";
+import "./i18n"; // i18next 설정 불러오기
 function App() {
-  const user = useUserStore((state) => state.user);
+  const { user } = useAuth();
 
   return (
     <>
@@ -27,6 +31,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/loginCheck" element={<LoginAgree />} />
         <Route path="/signIn" element={<SignIn />} />
+        <Route path="/Notification" element={<Notification />} />
+        <Route path="/Test" element={<Test />} />
+        <Route path="/About" element={<About />} />
         <Route
           path="/room"
           element={
@@ -67,6 +74,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="PasswordResetPage" element={<PasswordResetPage />} />
 
         {/* Add a catch-all route for undefined paths */}
         <Route path="*" element={<div>페이지를 찾을 수 없습니다.</div>} />

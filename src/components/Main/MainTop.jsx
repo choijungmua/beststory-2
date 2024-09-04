@@ -1,5 +1,5 @@
 import search from "../../assets/images/search.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import useToggle from "../../hooks/useToggle";
@@ -7,6 +7,7 @@ import CategoryList from "../../ui/CategoryList";
 import Check from "../../assets/images/Check.svg";
 import { useSearchCategory } from "../../store/Array";
 import SearchSelectTag from "../../ui/SearchSelectTag";
+import { useTranslation } from "react-i18next";
 
 const SECTION_CLASS = "bg-[#F3F3F3] pt-[25px] pb-[40px]";
 const CONTAINER_CLASS =
@@ -33,41 +34,45 @@ const MainTop = () => {
   const [error, setError] = useState(null);
   const [showSearch, setShowSearch] = useToggle();
   const { searchCategory, setSearchCategory } = useSearchCategory();
+  const { t } = useTranslation();
 
   // 검색 및 필터링 함수
-  const fetchFilteredData = async (term) => {
-    if (!term.trim()) {
-      setResults([]);
-      return;
-    }
-    setLoading(true);
-    setError(null);
-    try {
-      const colRef = collection(db, "responses");
+  const fetchFilteredData = useCallback(
+    async (term) => {
+      if (!term.trim()) {
+        setResults([]);
+        return;
+      }
+      setLoading(true);
+      setError(null);
+      try {
+        const colRef = collection(db, "responses");
 
-      // 부분 일치 검색을 위한 쿼리 작성
-      const q = query(
-        colRef,
-        where("title", ">=", term),
-        where("title", "<=", term + "\uf8ff"), // 유니코드 문자로 끝을 설정하여 범위 검색
-        orderBy("timestamp", "desc")
-      );
+        // 'title' 필드를 정렬해야 하므로 orderBy 사용
+        const q = query(
+          colRef,
+          where("title", "<=", term),
+          where("title", ">=", term + "\uf8ff"),
+          orderBy("title"),
+          orderBy("timestamp", "desc")
+        );
 
-      const snapshot = await getDocs(q);
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setResults(data);
-    } catch (err) {
-      setError(
-        "데이터를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."
-      );
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setResults(data);
+        console.log(data);
+      } catch (err) {
+        setError(t("error")); // 번역된 에러 메시지 사용
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [t]
+  );
 
   // 입력 변경 시 검색어 업데이트 및 debounce 적용
   useEffect(() => {
@@ -78,7 +83,7 @@ const MainTop = () => {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [searchTerm]);
+  }, [searchTerm, fetchFilteredData]);
 
   return (
     <section className={SECTION_CLASS}>
@@ -93,17 +98,17 @@ const MainTop = () => {
               value={searchTerm}
               className={SEARCH_INPUT_CLASS}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="원하는 주제의 방을 검색해 보세요."
+              placeholder={t("search_placeholder")} // 번역된 플레이스홀더 사용
             />
             <img
               src={search}
-              alt="search icon"
+              alt={t("search")} // 번역된 alt 텍스트 사용
               className={SEARCH_ICON_CLASS}
               onClick={() => fetchFilteredData(searchTerm)}
             />
           </form>
           <p onClick={setShowSearch} className={FILTER_TEXT_CLASS}>
-            FILTER
+            {t("filter")} {/* 번역된 필터 텍스트 사용 */}
           </p>
         </div>
         <SearchSelectTag />
@@ -111,7 +116,7 @@ const MainTop = () => {
           {!showSearch && (
             <>
               <p className={TAG_TEXT_CLASS}>
-                추가할 태그를 선택하세요. (최대 5개)
+                {t("select_tags")} {/* 번역된 태그 선택 안내 텍스트 사용 */}
               </p>
               <div className={TAG_BUTTON_CONTAINER_CLASS}>
                 <CategoryList
@@ -119,8 +124,9 @@ const MainTop = () => {
                   categoryArray={searchCategory}
                 />
                 <button onClick={setShowSearch} className={TAG_BUTTON_CLASS}>
-                  <img src={Check} alt="check icon" />
-                  완료
+                  <img src={Check} alt={t("done")} />{" "}
+                  {/* 번역된 완료 alt 텍스트 사용 */}
+                  {t("done")} {/* 번역된 완료 버튼 텍스트 사용 */}
                 </button>
               </div>
             </>
@@ -128,12 +134,14 @@ const MainTop = () => {
         </div>
         {loading && (
           <p>
-            검색 중... <span className="spinner"></span>
+            {t("loading")} <span className="spinner"></span>{" "}
+            {/* 번역된 로딩 텍스트 사용 */}
           </p>
         )}
         {error && <p>{error}</p>}
         {results.length === 0 && !loading && !error && (
-          <p>검색 결과가 없습니다.</p>
+          <p>{t("no_results")}</p>
+          // {/* 번역된 결과 없음 텍스트 사용 */}
         )}
         {results.length > 0 && (
           <ul>

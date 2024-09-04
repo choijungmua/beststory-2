@@ -1,0 +1,101 @@
+// src/i18n.js
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+// src/i18n.js
+const resources = {
+  en: {
+    translation: {
+      hello: "Hello",
+      BestStory: "Best Story",
+      all_list: "All List",
+      about: "About",
+      notices: "Notices",
+      notifications: "Notifications",
+      bookmark: "Bookmark",
+      login: "Login",
+      sign_in: "Sign In",
+      user: "User",
+      logout: "Logout",
+      Korean: "Korean",
+      English: "English",
+      arrow_down: "Arrow Down",
+      hamburger_menu: "Hamburger Menu",
+      search_placeholder: "Search for rooms on your topic.",
+      filter: "FILTER",
+      select_tags: "Select tags to add (up to 5)",
+      done: "Done",
+      no_results: "No results found.",
+      loading: "Searching...",
+      error: "An error occurred while fetching data. Please try again later.",
+      create_room: "Create Room",
+      room_count: "{{count}} rooms",
+      real_time_notifications: "Real-time Notifications",
+      more_rooms: "Show More Rooms",
+      best: "Best",
+      new: "New",
+      all: "All",
+      book: "Book",
+      done: "Done",
+      profile_update_success: "Profile updated successfully.",
+      profile_update_error: "Failed to update profile.",
+      user_not_authenticated: "User is not authenticated.",
+      upload_profile_picture: "Upload a new profile picture:",
+      username: "Username:",
+      update: "Update",
+    },
+  },
+  ko: {
+    translation: {
+      hello: "안녕하세요",
+      BestStory: "베스트스토리",
+      all_list: "모든 목록",
+      about: "소개",
+      notices: "공지",
+      notifications: "알림",
+      bookmark: "북마크",
+      login: "로그인",
+      sign_in: "회원가입",
+      user: "사용자",
+      logout: "로그아웃",
+      Korean: "한국어",
+      English: "영어",
+      arrow_down: "화살표",
+      hamburger_menu: "햄버거 메뉴",
+      search_placeholder: "원하는 주제의 방을 검색해 보세요.",
+      filter: "필터",
+      select_tags: "추가할 태그를 선택하세요. (최대 5개)",
+      done: "완료",
+      no_results: "검색 결과가 없습니다.",
+      loading: "검색 중...",
+      error:
+        "데이터를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+      create_room: "방 만들기",
+      room_count: "{{count}}개의 방",
+      real_time_notifications: "실시간 알림",
+      more_rooms: "방 더보기",
+      best: "베스트",
+      new: "새로운",
+      all: "모두",
+      book: "책",
+      done: "완료",
+      profile_update_success: "프로필이 성공적으로 업데이트되었습니다.",
+      profile_update_error: "프로필 업데이트에 실패했습니다.",
+      user_not_authenticated: "사용자가 인증되지 않았습니다.",
+      upload_profile_picture: "새 프로필 사진을 업로드하세요:",
+      username: "사용자 이름:",
+      update: "업데이트",
+    },
+  },
+};
+
+i18n.use(initReactI18next).init({
+  resources,
+  lng: "ko", // 기본 언어 설정을 한국어로 변경
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+export default i18n;

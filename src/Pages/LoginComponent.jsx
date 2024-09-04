@@ -8,10 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import useToggle from "../hooks/useToggle";
 import { auth, db, USER_COLLECTION } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useUserStore from "../store/Auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import Cookies from "js-cookie";
 
 const LoginComponent = () => {
   const [pwShow, setPwShow] = useToggle();
@@ -20,23 +19,13 @@ const LoginComponent = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { setUser, clearUser } = useUserStore((state) => ({
+  const { user, setUser } = useUserStore((state) => ({
     setUser: state.setUser,
     clearUser: state.clearUser,
   }));
 
-  // 페이지 로드 시 로컬 스토리지에서 사용자 정보 읽기
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setUser(JSON.parse(user));
-      navigate("/");
-    }
-  }, [navigate, setUser]);
-
   const onLogin = async (event) => {
     event.preventDefault();
-    clearUser();
     try {
       const credential = await signInWithEmailAndPassword(
         auth,
@@ -44,15 +33,14 @@ const LoginComponent = () => {
         passwordInput
       );
       const creUser = credential.user;
-      const idToken = await creUser.getIdToken();
-      Cookies.set("authToken", idToken, { expires: 1, secure: true });
 
       const userDoc = await getDoc(doc(db, USER_COLLECTION, creUser.uid));
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const user = { ...creUser, ...userData };
+        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("loginTimestamp", Date.now().toString()); // 로그인 시각 저장
         setUser(user);
-        localStorage.setItem("user", JSON.stringify(user)); // 로컬 스토리지에 사용자 정보 저장
       } else {
         setError("사용자 정보가 존재하지 않습니다.");
       }
@@ -146,12 +134,12 @@ const LoginComponent = () => {
             회원가입
           </Link>
         </p>
-        <p className={linkTextClass}>
+        <Link to="/PasswordResetPage" className={linkTextClass}>
           비밀번호가 기억나지 않나요?
           <a href="#" className={linkClass}>
             비밀번호 찾기
           </a>
-        </p>
+        </Link>
       </div>
     </section>
   );

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ApexCharts from "react-apexcharts";
-import arrowDown from "../assets/images/arrowDown.svg";
 
+// Sample data for the chart
 const series = [
   {
     name: "Sales",
@@ -24,60 +25,54 @@ const series = [
 
 export default function Admin() {
   const [typeIndex, setTypeIndex] = useState(0);
+  const navigate = useNavigate();
 
-  // typeIndex 값에 따라 문자열을 결정합니다.
-  const typeMapping = ["treemap", "bar", "line"];
+  const user = {
+    admin: true, // 관리자가 아닌 사용자는 false로 설정
+  };
+
+  useEffect(() => {
+    if (!user.admin) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  const typeMapping = ["line", "bar", "treemap"];
   const type = typeMapping[typeIndex];
 
-  // 버튼 클릭 시 typeIndex를 0, 1, 2로 순환하도록 설정합니다.
   const handleClick = () => {
     setTypeIndex((prevIndex) => (prevIndex + 1) % 3);
   };
 
-  // 동적으로 options 객체를 생성합니다.
   const options = {
     legend: { show: false },
     chart: {
       height: 350,
-      type: type, // 현재 타입에 맞게 설정합니다.
+      type: type,
       toolbar: { show: false },
     },
     dataLabels: {
       enabled: true,
       style: {
-        fontSize: "18px",
-        fontWeight: "bold",
-        colors: type === "line" ? ["#FFA07A"] : ["#ffffff"], // 조건에 따라 색상 설정
+        fontSize: "14px",
+        fontWeight: "normal",
+        colors: type === "line" ? ["#333"] : ["#fff"],
       },
       background: {
-        enabled: false, // 배경을 비활성화
+        enabled: false,
       },
-      offsetY: -10, // y축 방향으로의 오프셋 (위로 올림)
+      offsetY: -10,
     },
     title: {
       text: "월별 관리자 페이지 유저 수",
       align: "center",
       style: {
-        fontSize: "24px",
-        fontWeight: "bold",
-        color: "#1e293b",
+        fontSize: "20px",
+        fontWeight: "normal",
+        color: "#333",
       },
     },
-    colors: [
-      "#FFA07A",
-      "#E6E6FA",
-      "#90EE90",
-      "#87CEEB",
-      "#00CED1",
-      "#FFC0CB",
-      "#D2B48C",
-      "#FFDAB9",
-      "#FFD700",
-      "#D3D3D3",
-      "#ADD8E6",
-      "#87CEFA",
-    ],
-
+    colors: ["#666", "#888", "#AAA"],
     plotOptions: {
       treemap: {
         distributed: true,
@@ -99,58 +94,47 @@ export default function Admin() {
     },
     stroke: {
       curve: "smooth",
-      colors: type === "line" ? ["#FFA07A"] : ["#FFFFFF"], // 조건에 따라 색상 설정
-      width: 2, // 선의 두께 설정
+      colors: type === "line" ? ["#666"] : ["#FFF"],
+      width: 1.5,
     },
   };
 
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-xl overflow-hidden">
+      <div className="max-w-5xl mx-auto">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="px-6 py-8">
-            <div className="flex justify-between items-center font-bold">
-              <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-normal text-gray-800 mb-4">
                 관리자 대시보드
               </h2>
-              <div className="flex gap-4">
-                <div className="flex gap-2 items-center cursor-pointer">
-                  <p className="ml-[2px]">룸 관리</p>
-                  <img src={arrowDown} className="w-[13px]" alt="" />
-                </div>
-                <div
-                  onClick={handleClick}
-                  className="flex gap-2 items-center cursor-pointer"
-                >
-                  <p className="ml-[2px]">{type}</p>
-                  <img src={arrowDown} className="w-[13px]" alt="" />
-                </div>
+              <button
+                onClick={handleClick}
+                className="text-gray-600 border border-gray-300 rounded-md px-3 py-1"
+              >
+                {type}
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="bg-gray-200 text-gray-800 rounded-md p-4">
+                <h3 className="text-sm font-normal mb-1">총 유저 수</h3>
+                <p className="text-2xl font-semibold">1,234</p>
+              </div>
+              <div className="bg-gray-200 text-gray-800 rounded-md p-4">
+                <h3 className="text-sm font-normal mb-1">이번 달 신규 유저</h3>
+                <p className="text-2xl font-semibold">256</p>
+              </div>
+              <div className="bg-gray-200 text-gray-800 rounded-md p-4">
+                <h3 className="text-sm font-normal mb-1">활성 유저 비율</h3>
+                <p className="text-2xl font-semibold">78%</p>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-blue-500 text-white rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-2">총 유저 수</h3>
-                <p className="text-3xl font-bold">1,234</p>
-              </div>
-              <div className="bg-green-500 text-white rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-2">
-                  이번 달 신규 유저
-                </h3>
-                <p className="text-3xl font-bold">256</p>
-              </div>
-              <div className="bg-purple-500 text-white rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-2">활성 유저 비율</h3>
-                <p className="text-3xl font-bold">78%</p>
-              </div>
-            </div>
-            <div className="">
-              <ApexCharts
-                options={options}
-                series={series}
-                type={type}
-                height={450}
-              />
-            </div>
+            <ApexCharts
+              options={options}
+              series={series}
+              type={type}
+              height={350}
+            />
           </div>
         </div>
       </div>

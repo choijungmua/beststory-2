@@ -7,6 +7,8 @@ import { db } from "../../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { usePostState } from "../../store/PostStateStore";
+import { useTranslation } from "react-i18next";
+
 // 스타일 정의
 const styles = {
   section:
@@ -20,6 +22,7 @@ const styles = {
 };
 
 const MainMiddle = () => {
+  const { t } = useTranslation();
   // Extract the array of titles from the store
   const newTitles = useStore((state) => state.newTitles);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,13 +37,13 @@ const MainMiddle = () => {
       setIsLoading(true);
       const snapshot = await getDocs(collection(db, "responses"));
       const data = snapshot.docs.map((doc) => ({
-        id: doc.id, // 각 문서의 id를 추가합니다.
+        id: doc.id,
         ...doc.data(),
       }));
       setRoomLength(data.length);
     } catch (error) {
       console.error("Firestore 데이터 불러오기 오류:", error);
-      setError("데이터를 불러오는 데 오류가 발생했습니다.");
+      setError(t("error")); // 번역된 에러 메시지 사용
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +55,9 @@ const MainMiddle = () => {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center h-full">Loading...</div>
+      <div className="flex justify-center items-center h-full">
+        {t("loading")}
+      </div> // 번역된 로딩 텍스트 사용
     );
   if (error) return <div className="text-red-500">{error}</div>;
 
@@ -65,19 +70,26 @@ const MainMiddle = () => {
     setPostState(newState);
     setIsBoolPostState(!isBoolPostState);
   };
+
   return (
     <section className={styles.section}>
       {/* 방 만들기 */}
       <div className={styles.headerContainer}>
         <p onClick={handleMoreNameChange} className={styles.headerText}>
-          {roomLength}개의 방
+          {t("room_count", { count: roomLength })}{" "}
+          {/* 번역된 방 개수 텍스트 사용 */}
         </p>
         <Link to="/Room" className={styles.link}>
-          <img src={addChat} alt="Add Chat" className={styles.linkImage} /> 방
-          만들기
+          <img
+            src={addChat}
+            alt={t("create_room")}
+            className={styles.linkImage}
+          />{" "}
+          {/* 번역된 alt 텍스트 사용 */}
+          {t("create_room")} {/* 번역된 방 만들기 텍스트 사용 */}
         </Link>
       </div>
-      {postState === "BookMarkList" && <Recommendation category="Book" />}
+      {postState === "BookList" && <Recommendation category="Book" />}
       {postState === "AllList" && <Recommendation category="All" />}
       {postState === "" && (
         <>
@@ -88,7 +100,8 @@ const MainMiddle = () => {
       {postState === "BestList" && <Recommendation category="Best" />}
       {postState === "NewList" && <Recommendation category="New" />}
       <div className={styles.alertText}>
-        <p>실시간 알림</p>
+        <p>{t("real_time_notifications")}</p>{" "}
+        {/* 번역된 실시간 알림 텍스트 사용 */}
       </div>
       <div className={styles.notificationsContainer}>
         {limitedNewTitles.map((title, index) => (

@@ -62,6 +62,7 @@ const SignIn = () => {
       );
       const newUser = credential.user;
       await updateProfile(newUser, { displayName: nickName });
+
       // Zustand 스토어에 사용자 정보 설정
       setUser(newUser);
 
@@ -74,6 +75,8 @@ const SignIn = () => {
       });
 
       setSuccess("회원가입 성공!");
+      sessionStorage.setItem("user", JSON.stringify(newUser));
+      sessionStorage.setItem("loginTimestamp", Date.now().toString()); // 로그인 시각 저장
       alert("회원가입되었습니다.");
       navigate("/");
       setError("");

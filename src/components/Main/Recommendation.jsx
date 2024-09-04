@@ -37,7 +37,6 @@ const Recommendation = ({ category }) => {
   const [error, setError] = useState(null);
   const { postState, setPostState } = usePostState();
   const [showMore, setShowMore] = useState(false);
-
   // 메인페이지의 방 목록 변경
   const handleMoreNameChange = () => {
     setShowMore((prev) => {

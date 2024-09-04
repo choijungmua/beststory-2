@@ -13,7 +13,6 @@ const ProtectedRoute = ({ children }) => {
       setLoading(false);
     } else {
       const timer = setTimeout(() => setLoading(false), 500); // Simulate loading time
-      alert("로그인 후 이용 가능합니다.");
 
       return () => {
         clearTimeout(timer);

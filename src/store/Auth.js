@@ -1,9 +1,5 @@
 // store/Auth.js
 import create from "zustand";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Cookies from "js-cookie";
-
-const auth = getAuth();
 
 const useUserStore = create((set) => ({
   user: null,
@@ -11,18 +7,5 @@ const useUserStore = create((set) => ({
   clearUser: () => set({ user: null }),
 }));
 
-// Initialize authentication state on app load
-onAuthStateChanged(auth, async (user) => {
-  const { setUser, clearUser } = useUserStore.getState();
-
-  if (user) {
-    const idToken = await user.getIdToken();
-    Cookies.set("authToken", idToken, { expires: 1, secure: true });
-    setUser(user);
-  } else {
-    Cookies.remove("authToken");
-    clearUser();
-  }
-});
-
+// 상태 초기화 로직을 다른 파일로 이동하거나 삭제합니다.
 export default useUserStore;
