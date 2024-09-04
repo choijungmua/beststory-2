@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import RoomContent from "../../ui/RoomContent";
-import useRoomStore from "../../store/roomStore";
+import { useRoomStore } from "../../store/roomStore";
 import { initialDogData } from "../../db/initialDogData";
 
 export default function Answer({ submittedValue }) {
   const { roomData, setRoomData, setMainTitle } = useRoomStore();
-
   useEffect(() => {
     // 데이터와 제목을 초기화합니다.
     setMainTitle(submittedValue);

@@ -1,11 +1,17 @@
 import create from "zustand";
 
-// Zustand store 정의
+// Zustand store for managing room-related data
 const useRoomStore = create((set) => ({
-  roomData: [], // 초기 상태를 빈 배열로 설정
-  mainTitle: "", // 초기 상태를 빈 문자열로 설정
-  setRoomData: (newData) => set({ roomData: newData }), // 상태를 업데이트하는 함수
-  setMainTitle: (newString) => set({ mainTitle: newString }), // someString 상태를 업데이트하는 함수
+  roomData: [], // Initial state is an empty array
+  mainTitle: "", // Initial state is an empty string
+  setRoomData: (newData) => set({ roomData: newData }), // Function to update roomData
+  setMainTitle: (newString) => set({ mainTitle: newString }), // Function to update mainTitle
 }));
 
-export default useRoomStore;
+// Zustand store for managing bookmark state
+const useBookMark = create((set) => ({
+  bookMark: false, // Initial state is false
+  setBookMark: (newData) => set({ bookMark: newData }), // Function to update bookMark
+}));
+
+export { useRoomStore, useBookMark };

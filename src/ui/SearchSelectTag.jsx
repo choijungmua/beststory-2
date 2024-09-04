@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import { useCategory } from "../store/Array";
-const SelectTag = ({ postCategory = [] }) => {
-  const { categoryArray } = useCategory();
+import { useSearchCategory } from "../store/Array";
+const SearchSelectTag = () => {
+  const { searchCategory } = useSearchCategory();
   return (
     <div className="flex flex-wrap gap-[10px] text-white mb-[20px]">
-      {categoryArray.map((item, index) => (
+      {searchCategory.map((item, index) => (
         <div
           key={index}
           className="flex font-bold whitespace-nowrap items-center rounded-full bg-primary px-[25px] max-sm:text-[14px] max-sm:h-[30px] h-[40px]"
@@ -17,8 +17,8 @@ const SelectTag = ({ postCategory = [] }) => {
 };
 
 // Adding prop types to validate props
-SelectTag.propTypes = {
+SearchSelectTag.propTypes = {
   postCategory: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default SelectTag;
+export default SearchSelectTag;

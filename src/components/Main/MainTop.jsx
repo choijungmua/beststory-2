@@ -1,10 +1,12 @@
 import search from "../../assets/images/search.svg";
-import { categories } from "../../db/categories";
+import { useState, useEffect } from "react";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import { db } from "../../firebase-config";
 import useToggle from "../../hooks/useToggle";
-import SelectTag from "../../ui/SelectTag";
 import CategoryList from "../../ui/CategoryList";
 import Check from "../../assets/images/Check.svg";
-import { useCategory } from "../../store/Array";
+import { useSearchCategory } from "../../store/Array";
+import SearchSelectTag from "../../ui/SearchSelectTag";
 
 const SECTION_CLASS = "bg-[#F3F3F3] pt-[25px] pb-[40px]";
 const CONTAINER_CLASS =
@@ -25,27 +27,86 @@ const TAG_BUTTON_CLASS =
   "flex gap-1 opacity-80 font-bold items-center rounded-[50px] bg-primary px-[25px] h-[40px]";
 
 const MainTop = () => {
+  const [results, setResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [showSearch, setShowSearch] = useToggle();
-  const { categoryArray } = useCategory();
+  const { searchCategory, setSearchCategory } = useSearchCategory();
+
+  // 검색 및 필터링 함수
+  const fetchFilteredData = async (term) => {
+    if (!term.trim()) {
+      setResults([]);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const colRef = collection(db, "responses");
+
+      // 부분 일치 검색을 위한 쿼리 작성
+      const q = query(
+        colRef,
+        where("title", ">=", term),
+        where("title", "<=", term + "\uf8ff"), // 유니코드 문자로 끝을 설정하여 범위 검색
+        orderBy("timestamp", "desc")
+      );
+
+      const snapshot = await getDocs(q);
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setResults(data);
+    } catch (err) {
+      setError(
+        "데이터를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."
+      );
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 입력 변경 시 검색어 업데이트 및 debounce 적용
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm) {
+        fetchFilteredData(searchTerm);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   return (
     <section className={SECTION_CLASS}>
-      {/* 검색 필터 */}
       <div className={CONTAINER_CLASS}>
         <div className={SEARCH_CONTAINER_CLASS}>
-          <div className={SEARCH_BOX_CLASS}>
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className={SEARCH_BOX_CLASS}
+          >
             <input
               type="text"
+              value={searchTerm}
               className={SEARCH_INPUT_CLASS}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="원하는 주제의 방을 검색해 보세요."
             />
-            <img src={search} alt="search icon" className={SEARCH_ICON_CLASS} />
-          </div>
+            <img
+              src={search}
+              alt="search icon"
+              className={SEARCH_ICON_CLASS}
+              onClick={() => fetchFilteredData(searchTerm)}
+            />
+          </form>
           <p onClick={setShowSearch} className={FILTER_TEXT_CLASS}>
             FILTER
           </p>
         </div>
-        <SelectTag categoryArray={categoryArray} />
+        <SearchSelectTag />
         <div className={TAG_CONTAINER_CLASS}>
           {!showSearch && (
             <>
@@ -53,7 +114,10 @@ const MainTop = () => {
                 추가할 태그를 선택하세요. (최대 5개)
               </p>
               <div className={TAG_BUTTON_CONTAINER_CLASS}>
-                <CategoryList categories={categories} />
+                <CategoryList
+                  setCategoryArray={setSearchCategory}
+                  categoryArray={searchCategory}
+                />
                 <button onClick={setShowSearch} className={TAG_BUTTON_CLASS}>
                   <img src={Check} alt="check icon" />
                   완료
@@ -62,6 +126,22 @@ const MainTop = () => {
             </>
           )}
         </div>
+        {loading && (
+          <p>
+            검색 중... <span className="spinner"></span>
+          </p>
+        )}
+        {error && <p>{error}</p>}
+        {results.length === 0 && !loading && !error && (
+          <p>검색 결과가 없습니다.</p>
+        )}
+        {results.length > 0 && (
+          <ul>
+            {results.map((result) => (
+              <li key={result.id}>{result.title}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );

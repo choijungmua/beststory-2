@@ -8,14 +8,14 @@ const TEXT_LINK_CLASS =
 const LINK_CLASS = "font-bold text-[#495DAC] mr-1";
 
 const LiveNotifications = (props) => {
-  const { title } = props;
+  const { id, title } = props;
 
   // Render the component
   return (
     <div className={TEXT_CLASS}>
       <div className={CONTAINER_CLASS}>
         <span className={TEXT_LINK_CLASS}>
-          <Link to="/MainChat" className={LINK_CLASS}>
+          <Link to={`/mainchat/${id}`} className={LINK_CLASS}>
             {title}
           </Link>
           <p>채팅룸이 새로 생성되었어요. 참여해보세요!</p>
