@@ -6,11 +6,12 @@ import email from "../assets/images/email.svg";
 import closeEye from "../assets/images/closeEye.svg";
 import { Link, useNavigate } from "react-router-dom";
 import useToggle from "../hooks/useToggle";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db, USER_COLLECTION } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useUserStore from "../store/Auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Cookies from "js-cookie";
 
 const LoginComponent = () => {
   const [pwShow, setPwShow] = useToggle();
@@ -19,13 +20,20 @@ const LoginComponent = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // 유저의 정보 저장
   const { setUser, clearUser } = useUserStore((state) => ({
     setUser: state.setUser,
     clearUser: state.clearUser,
   }));
 
-  // 로그인
+  // 페이지 로드 시 로컬 스토리지에서 사용자 정보 읽기
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUser(JSON.parse(user));
+      navigate("/");
+    }
+  }, [navigate, setUser]);
+
   const onLogin = async (event) => {
     event.preventDefault();
     clearUser();
@@ -36,19 +44,20 @@ const LoginComponent = () => {
         passwordInput
       );
       const creUser = credential.user;
+      const idToken = await creUser.getIdToken();
+      Cookies.set("authToken", idToken, { expires: 1, secure: true });
 
-      // Firestore에서 사용자 정보 가져오기
       const userDoc = await getDoc(doc(db, USER_COLLECTION, creUser.uid));
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        // Zustand 스토어의 user 상태 업데이트
-        setUser({ ...creUser, ...userData }); // Firestore에서 가져온 사용자 데이터 포함
+        const user = { ...creUser, ...userData };
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user)); // 로컬 스토리지에 사용자 정보 저장
       } else {
         setError("사용자 정보가 존재하지 않습니다.");
       }
+
       navigate("/");
-      console.log(creUser); // credential.user를 로그에 출력
-      console.log(creUser.displayName); // credential.user의 displayName을 로그에 출력
       alert(`${creUser.displayName}님 안녕하세요`);
     } catch (error) {
       switch (error.code) {
