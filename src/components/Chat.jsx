@@ -1,11 +1,11 @@
 import UserInfo from "../ui/UserInfo";
 import Chatting from "./Main/Chatting";
-const Chat = () => {
+const Chat = ({ data, id }) => {
   return (
     <div className="flex flex-col max-lg:hidden gap-[25px]">
-      <UserInfo />
+      <UserInfo name={data.user} />
 
-      <Chatting />
+      <Chatting id={id} />
     </div>
   );
 };

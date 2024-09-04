@@ -6,13 +6,26 @@ import bookMark from "../../assets/images/bookMark.svg";
 import alarm from "../../assets/images/alarm.svg";
 import { useAside } from "../../store/AsideStore";
 import useToggle from "../../hooks/useToggle";
-
+import useAuth from "../../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
 export default function Aside() {
+  const navigate = useNavigate();
+
   const { asideOpen, setAsideOpen } = useAside();
   const [isKorean, setIsKorean] = useToggle();
+  const { user, logout } = useAuth();
 
   const handleClose = () => {
     setAsideOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.error("로그아웃 중 오류 발생:", error);
+    }
   };
 
   return (
@@ -26,16 +39,15 @@ export default function Aside() {
         }`}
       >
         <div className="flex flex-col gap-[20px]">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <div onClick={setIsKorean} className="flex gap-2 cursor-pointer">
-              {/* TOP */}
               <img
                 src={isKorean ? korean : korean}
                 className="w-[27px]"
                 alt={isKorean ? "Korean" : "English"}
               />
               <p className="ml-[2px]">{isKorean ? "한국어" : "English"}</p>
-              <img src={arrowDown} className="w-[13px]" alt="" />
+              <img src={arrowDown} className="w-[13px]" alt="arrowDown" />
             </div>
             <img
               src={BlackX}
@@ -44,15 +56,17 @@ export default function Aside() {
               onClick={handleClose}
             />
           </div>
-          {/* MIDDLE */}
+          {/* 사용자 정보 및 알림/북마크 */}
           <div className="w-full border border-tertiary rounded-[5px]">
             <div className="flex border-b-2 border-tertiary h-[60px] gap-[2px] justify-center items-center">
-              <p className="text-text">jkjk0192</p>
+              {/* 사용자 이미지 */}
               <img
-                src={Dog1}
-                alt="Dog1"
+                src={user?.photoURL || Dog1}
+                alt="User"
                 className="rounded-full w-[32px] h-[32px] border border-tertiary"
               />
+              {/* 사용자 이름 */}
+              <p className="ml-2">{user?.displayName || "Guest"}</p>
             </div>
             <div className="flex h-[40px] text-text">
               <div className="flex-1 gap-2 flex justify-center items-center">
@@ -69,8 +83,15 @@ export default function Aside() {
               </div>
             </div>
           </div>
-          {/* Bottom */}
-          <p className="text-error">로그아웃</p>
+          {!user ? (
+            <Link to="/Login" onClick={handleClose}>
+              로그인
+            </Link>
+          ) : (
+            <p onClick={handleLogout} className="text-error cursor-pointer">
+              로그아웃
+            </p>
+          )}
           <div className="text-text flex flex-col gap-[10px]">
             <p>모든 목록</p>
             <p>소개</p>

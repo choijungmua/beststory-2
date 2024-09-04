@@ -1,5 +1,4 @@
 import LoginComponent from "./LoginComponent";
-
 const Login = () => {
   return (
     <>

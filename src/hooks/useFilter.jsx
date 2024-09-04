@@ -1,25 +1,18 @@
 import { useState } from "react";
 
-const useFilter = (initialCategories = []) => {
-  const [selectedCategories, setSelectedCategories] =
-    useState(initialCategories);
+const useFilter = () => {
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const toggleCategory = (category) => {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(
-        selectedCategories.filter((item) => item !== category)
-      );
-    } else if (selectedCategories.length < 5) {
-      setSelectedCategories([...selectedCategories, category]);
-    } else {
-      alert("최대 5개 까지만 설정 가능합니다.");
-    }
+    setSelectedCategories(
+      (prevSelected) =>
+        prevSelected.includes(category)
+          ? prevSelected.filter((item) => item !== category)
+          : [...prevSelected, category].slice(0, 5) // Limit to 5 categories
+    );
   };
 
-  return {
-    selectedCategories,
-    toggleCategory,
-  };
+  return { selectedCategories, toggleCategory };
 };
 
 export default useFilter;

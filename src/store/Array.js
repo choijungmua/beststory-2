@@ -1,7 +1,15 @@
-// store.js
 import create from "zustand";
-// Aside 상태 관리
+
+// Zustand store 정의
 export const useCategory = create((set) => ({
-  categoryArray: [],
-  setCategoryArray: (value) => set({ categoryArray: value }),
+  categoryArray: [], // 배열로 초기화
+  setCategoryArray: (categories) =>
+    set({ categoryArray: Array.isArray(categories) ? categories : [] }),
+}));
+
+// Zustand store 정의
+export const useSearchCategory = create((set) => ({
+  searchCategory: [], // 배열로 초기화
+  setSearchCategory: (categories) =>
+    set({ searchCategory: Array.isArray(categories) ? categories : [] }),
 }));
